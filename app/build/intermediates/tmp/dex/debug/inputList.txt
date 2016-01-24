@@ -1,0 +1,2 @@
+/Users/workboard/TodoV1/app/build/intermediates/classes/debug
+/Users/workboard/TodoV1/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-d6af9518f9d14007f8b59d4edd334212c240556a.jar
