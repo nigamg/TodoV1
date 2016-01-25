@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.mainscreen;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,15 +10,24 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.example.todo.R;
+import com.example.todo.sql.db.Todo;
+import com.example.todo.sql.TodoDbHelper;
+
 import java.sql.SQLException;
 
 
-public class EditTodo extends Activity implements OnClickListener {
+public class EditTodoItemActivity extends Activity implements OnClickListener {
 
     Button editSaveButton;
     protected TodoDbHelper db;
     private int id;
     private int position;
+
+    /**
+     * Request code for the edit item intent
+     */
+    private final int EDIT_ITEM_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +86,7 @@ public class EditTodo extends Activity implements OnClickListener {
         if (editSaveButton.isPressed()) {
             // When back button is pressed
             // Create an intent
-            Intent intent = new Intent(this, TodoView.class);
+            Intent intent = new Intent(this, CreateTodoItemActivity.class);
 
             // update the edit text fields and set focus on the title
             EditText editText = (EditText) findViewById(R.id.editText2);
@@ -91,7 +100,7 @@ public class EditTodo extends Activity implements OnClickListener {
             db.updateTask(todo);
 
             // Start activity
-            startActivity(intent);
+            startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
             // Finish this activity
             this.finish();
         }

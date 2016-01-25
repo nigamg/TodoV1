@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.sql;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.todo.sql.db.Todo;
 
 public class TodoDbHelper extends SQLiteOpenHelper {
 

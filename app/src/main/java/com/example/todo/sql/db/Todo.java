@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.sql.db;
 
 public class Todo {
     private String toDoName;

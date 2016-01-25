@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.mainscreen;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +20,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class TodoView extends Activity {
+import com.example.todo.R;
+import com.example.todo.sql.db.Todo;
+import com.example.todo.sql.TodoDbHelper;
+
+public class CreateTodoItemActivity extends Activity {
 	protected TodoDbHelper db;
 	List<Todo> list;
 	MyAdapter adapt;
@@ -77,7 +81,7 @@ public class TodoView extends Activity {
                     int position,
                     long id) {
                 // create a new intent to edit the item
-                Intent editItemIntent = new Intent(TodoView.this, EditTodo.class);
+                Intent editItemIntent = new Intent(CreateTodoItemActivity.this, EditTodoItemActivity.class);
 
                 // add the item's position and info to the intent
                 Todo selectedItem = list.get(position);
