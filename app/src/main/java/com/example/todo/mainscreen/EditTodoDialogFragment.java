@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -33,8 +34,19 @@ public class EditTodoDialogFragment extends DialogFragment implements OnEditorAc
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "title";
 
+    /**
+     * NumberPicker field with the item's priority
+     */
+    private NumberPicker priorityNumberPicker;
 
+    /**
+     * button save
+     */
     Button editDialogSaveButton;
+
+    /**
+     * db instance
+     */
     protected TodoDbHelper db;
     private int id;
 
@@ -98,6 +110,11 @@ public class EditTodoDialogFragment extends DialogFragment implements OnEditorAc
         editText.requestFocus();
         editText.setSelection(todo.getToDoName().length());
 
+        priorityNumberPicker = (NumberPicker) v.findViewById(R.id.numberPicker);
+        priorityNumberPicker.setMaxValue(100);
+        priorityNumberPicker.setMinValue(0);
+        priorityNumberPicker.setValue(todo.getPriority());
+
         //set the save button listener
         editDialogSaveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View vv) {
@@ -111,9 +128,11 @@ public class EditTodoDialogFragment extends DialogFragment implements OnEditorAc
 
                 Todo todo = db.getTodoTask(id);
                 String s = editText.getText().toString();
+                NumberPicker p = (NumberPicker) v.findViewById(R.id.numberPicker);
 
                 // update todo
                 todo.setToDoName(s);
+                todo.setPriority(p.getValue());
 
                 db.updateTask(todo);
 

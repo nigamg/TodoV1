@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editToDoDialog"
     android:layout_width="wrap_content"
@@ -13,22 +13,28 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText3"
+        android:layout_gravity="left|top"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="45dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="left|top" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="85dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/editDialogSaveButton"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/editText3"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="right" />
+        android:layout_gravity="left|top|center"
+        android:layout_below="@+id/numberPicker"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp" />
 
-</LinearLayout>
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
 <!-- From: file:/Users/workboard/TodoV1/app/src/main/res/layout/edit_todo_dialog_fragment.xml -->

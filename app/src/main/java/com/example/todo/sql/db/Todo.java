@@ -4,6 +4,8 @@ public class Todo {
     private String toDoName;
 	private int status;
 	private int id;
+    public String dueDate;
+    public int priority;
 	
 	public Todo()
 	{
@@ -35,6 +37,21 @@ public class Todo {
 
     public void setToDoName(String toDoName) {
         this.toDoName = toDoName;
+    }
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
 
