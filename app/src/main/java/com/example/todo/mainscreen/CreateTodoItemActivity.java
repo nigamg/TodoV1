@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,7 +27,7 @@ import com.example.todo.R;
 import com.example.todo.sql.db.Todo;
 import com.example.todo.sql.TodoDbHelper;
 
-public class CreateTodoItemActivity extends Activity {
+public class CreateTodoItemActivity extends FragmentActivity implements EditTodoDialogFragment.EditTodoDialogFragmentListener {
 	protected TodoDbHelper db;
 	List<Todo> list;
 	MyAdapter adapt;
@@ -64,7 +67,7 @@ public class CreateTodoItemActivity extends Activity {
                     ) {
 
                         /*Todo item = items.get(position);
-                        if (persistentStorage.deleteItem(item)) {
+                        if (db.deleteItem(item)) {
                             items.remove(position);
                             itemsAdapter.notifyDataSetChanged();
                         }*/
@@ -80,25 +83,52 @@ public class CreateTodoItemActivity extends Activity {
                     View view,
                     int position,
                     long id) {
-                // create a new intent to edit the item
+
+                /*// create a new intent to edit the item
                 Intent editItemIntent = new Intent(CreateTodoItemActivity.this, EditTodoItemActivity.class);
 
                 // add the item's position and info to the intent
-                Todo selectedItem = list.get(position);
+                //Todo selectedItem = list.get(position);
 
                 editItemIntent.putExtra("position", position);
                 editItemIntent.putExtra("id", selectedItem.getId());
 
-                startActivityForResult(editItemIntent, EDIT_ITEM_REQUEST_CODE);
+                startActivityForResult(editItemIntent, EDIT_ITEM_REQUEST_CODE);*/
+                showEditDialog(position);
             }
         });
 	}
 
+    /***
+     * Show edit dialog with selected todo item
+     * @param position
+     */
+    private void showEditDialog(int position) {
+
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+
+        EditTodoDialogFragment editTodoItemDialogFragmentDialog = EditTodoDialogFragment.newInstance("Edit Todo");
+
+        Todo selectedItem = list.get(position);
+
+        Bundle args = new Bundle();
+        args.putInt("position", position);
+        args.putInt("id", selectedItem.getId());
+
+        editTodoItemDialogFragmentDialog.setArguments(args);
+        editTodoItemDialogFragmentDialog.show(fm, "fragment_edit_todo_dialog");
+
+	}
+
+    /***
+     *  Add todo task
+     * @param v
+     */
 	public void addTaskNow(View v) {
 		EditText t = (EditText) findViewById(R.id.editText1);
 		String s = t.getText().toString();
 		if (s.equalsIgnoreCase("")) {
-			Toast.makeText(this, "enter the task description first!!",
+			Toast.makeText(this, "enter the todo description first!!",
 					Toast.LENGTH_LONG);
 		} else {
 			Todo task = new Todo(s, 0);
@@ -118,7 +148,12 @@ public class CreateTodoItemActivity extends Activity {
 		return true;
 	}
 
-	private class MyAdapter extends ArrayAdapter<Todo> {
+    @Override
+    public void onFinishEditTodoDialog(String inputText) {
+        Toast.makeText(this, inputText + "successfully updated todo.", Toast.LENGTH_SHORT).show();
+    }
+
+    private class MyAdapter extends ArrayAdapter<Todo> {
 
 		Context context;
 		List<Todo> toDoList = new ArrayList<Todo>();
